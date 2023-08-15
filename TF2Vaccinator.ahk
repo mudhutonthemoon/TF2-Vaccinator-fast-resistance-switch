@@ -77,9 +77,6 @@ f:: {
 
         CurrentResistance := RESISTANCE_FIRE
     }
-    ; Send(RELOAD_KEY)
-    ; Sleep(TIME_BETWEEN_COMMANDS)
-    ; Send(RELOAD_KEY)
 }
 
 CycleNext() {
