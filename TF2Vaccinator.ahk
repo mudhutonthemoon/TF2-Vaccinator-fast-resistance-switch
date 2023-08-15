@@ -4,7 +4,7 @@
 
 ; Config
 global RELOAD_KEY := "`b"
-global TIME_BETWEEN_COMMANDS := 128
+global TIME_BETWEEN_COMMANDS := 95
 
 ; Toggle
 #SuspendExempt
