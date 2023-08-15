@@ -1,9 +1,10 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
+
 #HotIf WinActive("Team Fortress 2")
 
 ; Config
 global RELOAD_KEY := "`b"
-global TIME_BETWEEN_COMMANDS := 40
+global TIME_BETWEEN_COMMANDS := 128
 
 ; Toggle
 #SuspendExempt
@@ -14,6 +15,7 @@ RAlt:: {
         loop 2 {
             SoundBeep(523, 100)
         }
+        CurrentResistance := RESISTANCE_BULLET
     }
     Suspend()
 }
@@ -84,9 +86,10 @@ CycleNext() {
     Send(RELOAD_KEY)
 }
 CyclePrevious() {
-    Send(RELOAD_KEY)
-    Sleep(TIME_BETWEEN_COMMANDS)
-    Send(RELOAD_KEY)
+    loop 2 {
+        Sleep(TIME_BETWEEN_COMMANDS)
+        Send(RELOAD_KEY)
+    }
 }
 
 Reset(startup := false) {
@@ -94,10 +97,13 @@ Reset(startup := false) {
         SoundBeep(554, 100)
         SoundBeep(739, 100)
         SoundBeep(988, 600)
+        CurrentResistance := RESISTANCE_BULLET
     } else {
-        SoundBeep(988, 300)
+        loop 3 {
+            SoundBeep(988, 75)
+        }
+        Reload()
     }
-    CurrentResistance := RESISTANCE_BULLET
 }
 
 Suspend()
