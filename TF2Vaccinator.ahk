@@ -82,13 +82,13 @@ f:: {
 }
 
 CycleNext() {
-    Sleep(TIME_BETWEEN_COMMANDS)
     Send(RELOAD_KEY)
+    Sleep(TIME_BETWEEN_COMMANDS)
 }
 CyclePrevious() {
     loop 2 {
-        Sleep(TIME_BETWEEN_COMMANDS)
         Send(RELOAD_KEY)
+        Sleep(TIME_BETWEEN_COMMANDS)
     }
 }
 
@@ -100,7 +100,7 @@ Reset(startup := false) {
         CurrentResistance := RESISTANCE_BULLET
     } else {
         loop 3 {
-            SoundBeep(988, 75)
+            SoundBeep(988, 100)
         }
         Reload()
     }
