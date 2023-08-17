@@ -4,7 +4,7 @@
 
 ; Config
 global ReloadKey := "`b" ; Bound to +reload
-global TimeBetweenCommands := 15
+global TimeBetweenCommands := 50
 
 ; Toggle
 #SuspendExempt
