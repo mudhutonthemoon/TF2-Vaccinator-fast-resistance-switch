@@ -3,8 +3,8 @@
 #HotIf WinActive("Team Fortress 2")
 
 ; Config
-global RELOAD_KEY := "`b"
-global TIME_BETWEEN_COMMANDS := 95
+global ReloadKey := "`b" ; Bound to +reload
+global TimeBetweenCommands := 15
 
 ; Toggle
 #SuspendExempt
@@ -15,80 +15,80 @@ RAlt:: {
         loop 2 {
             SoundBeep(523, 100)
         }
-        CurrentResistance := RESISTANCE_BULLET
+        CurrentResistance := ResistanceTypeBullet
     }
     Suspend()
 }
 #SuspendExempt false
 
-; Reset
-Up:: {
-    Reset()
-}
-
-
-global RESISTANCE_BULLET := 0
-global RESISTANCE_EXPLOSIVE := 1
-global RESISTANCE_FIRE := 2
-
-global CurrentResistance := RESISTANCE_BULLET
-
 ; Bullet
 e:: {
     global
-    if (CurrentResistance != RESISTANCE_BULLET) {
+    if (CurrentResistance != ResistanceTypeBullet) {
 
         switch (CurrentResistance) {
-            case RESISTANCE_EXPLOSIVE:
+            case ResistanceTypeExplosive:
                 CyclePrevious()
-            case RESISTANCE_FIRE:
+            case ResistanceTypeFire:
                 CycleNext()
         }
 
-        CurrentResistance := RESISTANCE_BULLET
+        CurrentResistance := ResistanceTypeBullet
     }
 }
 
 ; Explosive
 r:: {
     global
-    if (CurrentResistance != RESISTANCE_EXPLOSIVE) {
+    if (CurrentResistance != ResistanceTypeExplosive) {
 
         switch (CurrentResistance) {
-            case RESISTANCE_BULLET:
+            case ResistanceTypeBullet:
                 CycleNext()
-            case RESISTANCE_FIRE:
+            case ResistanceTypeFire:
                 CyclePrevious()
         }
 
-        CurrentResistance := RESISTANCE_EXPLOSIVE
+        CurrentResistance := ResistanceTypeExplosive
     }
 }
 
 ; Fire
 f:: {
     global
-    if (CurrentResistance != RESISTANCE_FIRE) {
+    if (CurrentResistance != ResistanceTypeFire) {
 
         switch (CurrentResistance) {
-            case RESISTANCE_BULLET:
+            case ResistanceTypeBullet:
                 CyclePrevious()
-            case RESISTANCE_EXPLOSIVE:
+            case ResistanceTypeExplosive:
                 CycleNext()
         }
 
-        CurrentResistance := RESISTANCE_FIRE
+        CurrentResistance := ResistanceTypeFire
     }
 }
 
+; Reset
+b:: {
+    Reset()
+}
+
+
+global ResistanceTypeBullet := 0
+global ResistanceTypeExplosive := 1
+global ResistanceTypeFire := 2
+
+global CurrentResistance := ResistanceTypeBullet
+
 CycleNext() {
-    Send(RELOAD_KEY)
-    Sleep(TIME_BETWEEN_COMMANDS)
+    Send(ReloadKey)
+    Sleep(TimeBetweenCommands)
 }
 CyclePrevious() {
     loop 2 {
-        Send(RELOAD_KEY)
-        Sleep(TIME_BETWEEN_COMMANDS)
+        Send(ReloadKey)
+        Sleep(TimeBetweenCommands)
     }
 }
 
@@ -97,13 +97,17 @@ Reset(startup := false) {
         SoundBeep(554, 100)
         SoundBeep(739, 100)
         SoundBeep(988, 600)
-        CurrentResistance := RESISTANCE_BULLET
+
+        CurrentResistance := ResistanceTypeBullet
     } else {
-        loop 3 {
+        Send(ReloadKey)
+        CurrentResistance := ResistanceTypeBullet
+        loop 2 {
             SoundBeep(988, 100)
         }
-        Reload()
     }
+
 }
+
 
 Suspend()
