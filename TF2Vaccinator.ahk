@@ -8,7 +8,7 @@ global TimeBetweenCommands := 50
 
 ; Toggle
 #SuspendExempt
-RAlt:: {
+RCtrl:: {
     if (A_IsSuspended) {
         Reset(true)
     } else {
