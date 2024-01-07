@@ -4,68 +4,39 @@
 
 ; Config
 global ReloadKey := "`b" ; Bound to +reload
-global TimeBetweenCommands := 50
+global TimeBetweenCommands := 64 ; Time between cycling in milliseconds.
 
 ; Toggle
 #SuspendExempt
 RCtrl:: {
-    if (A_IsSuspended) {
-        Reset(true)
-    } else {
-        loop 2 {
-            SoundBeep(523, 100)
-        }
-        CurrentResistance := ResistanceTypeBullet
-    }
+    Reset(A_IsSuspended)
     Suspend()
 }
 #SuspendExempt false
 
-; Bullet
+; Set bullet resistance
 e:: {
     global
-    if (CurrentResistance != ResistanceTypeBullet) {
-
-        switch (CurrentResistance) {
-            case ResistanceTypeExplosive:
-                CyclePrevious()
-            case ResistanceTypeFire:
-                CycleNext()
-        }
-
-        CurrentResistance := ResistanceTypeBullet
+    while (CurrentResistance != ResistanceTypeBullet) {
+        Cycle()
     }
 }
 
-; Explosive
+; Set explosive resistance
 r:: {
     global
-    if (CurrentResistance != ResistanceTypeExplosive) {
 
-        switch (CurrentResistance) {
-            case ResistanceTypeBullet:
-                CycleNext()
-            case ResistanceTypeFire:
-                CyclePrevious()
-        }
-
-        CurrentResistance := ResistanceTypeExplosive
+    while (CurrentResistance != ResistanceTypeExplosive) {
+        Cycle()
     }
 }
 
-; Fire
+; Set fire resistance
 f:: {
     global
-    if (CurrentResistance != ResistanceTypeFire) {
 
-        switch (CurrentResistance) {
-            case ResistanceTypeBullet:
-                CyclePrevious()
-            case ResistanceTypeExplosive:
-                CycleNext()
-        }
-
-        CurrentResistance := ResistanceTypeFire
+    while (CurrentResistance != ResistanceTypeFire) {
+        Cycle()
     }
 }
 
@@ -81,15 +52,12 @@ global ResistanceTypeFire := 2
 
 global CurrentResistance := ResistanceTypeBullet
 
-CycleNext() {
+Cycle() {
+    global
+
     Send(ReloadKey)
+    CurrentResistance := Mod(CurrentResistance + 1, 3)
     Sleep(TimeBetweenCommands)
-}
-CyclePrevious() {
-    loop 2 {
-        Send(ReloadKey)
-        Sleep(TimeBetweenCommands)
-    }
 }
 
 Reset(startup := false) {
@@ -97,16 +65,13 @@ Reset(startup := false) {
         SoundBeep(554, 100)
         SoundBeep(739, 100)
         SoundBeep(988, 600)
-
-        CurrentResistance := ResistanceTypeBullet
     } else {
-        Send(ReloadKey)
-        CurrentResistance := ResistanceTypeBullet
         loop 2 {
-            SoundBeep(988, 100)
+            SoundBeep(523, 100)
         }
     }
 
+    CurrentResistance := ResistanceTypeBullet
 }
 
 
