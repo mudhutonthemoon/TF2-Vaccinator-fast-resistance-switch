@@ -10,15 +10,14 @@
 
 - `backspace` - Cycle resistance normally in case of desync. Bind this key to "+reload" in-game.
 
-- **Add the following line to your config:**
-  * `bind BACKSPACE +reload`
-
 - `right ctrl` - Enables or disables the script.
 
 ## Tutorial
 
 - Download the latest release.
 - Extract files and run `TF2Vaccinator.exe`
+- **Add the following line to your config:**
+  * `bind BACKSPACE +reload`
 - Open TF2.
 
 ## Virustotal scan
