@@ -10,7 +10,8 @@
 
 - `backspace` - Cycle resistance normally in case of desync. Bind this key to "+reload" in-game.
 
-- **Add the following line to your config:** `bind BACKSPACE +reload`
+- **Add the following line to your config:**
+  * `bind BACKSPACE +reload`
 
 - `right ctrl` - Enables or disables the script.
 
