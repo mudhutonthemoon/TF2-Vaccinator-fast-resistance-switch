@@ -12,25 +12,6 @@ RCtrl:: {
   Reset(A_IsSuspended)
   Suspend()
 }
-
-1:: {
-  global
-
-  VaccActive := false
-  SendInput(1)
-}
-2:: {
-  global
-
-  VaccActive := true
-  SendInput(2)
-}
-3:: {
-  global
-
-  VaccActive := false
-  SendInput(3)
-}
 #SuspendExempt false
 
 ; Set bullet resistance
@@ -63,6 +44,26 @@ f:: {
 ; Reset
 b:: {
   Reset()
+}
+
+; Handle weapon switching
+1:: {
+  global
+
+  VaccActive := false
+  SendInput(1)
+}
+2:: {
+  global
+
+  VaccActive := true
+  SendInput(2)
+}
+3:: {
+  global
+
+  VaccActive := false
+  SendInput(3)
 }
 
 
